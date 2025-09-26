@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prototype — Medical Data Sharing</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">H</div>
+        <div>
+          <div style="font-weight:800">Hospital &amp; Prevention</div>
+          <div style="font-size:12px;color:var(--muted)">Prototype — secure data sharing &amp; prevention</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="#form">Share</a>
+        <a href="#">Dashboard</a>
+      </nav>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section id="home" class="card">
+          <h1>Prototype vision</h1>
+          <p class="lead">This prototype shows how a hospital can responsibly collect and share data related to environment, genetics and diet — to estimate risks and propose personalized preventive actions.</p>
+          <div style="margin-top:14px">
+            <strong>Simulated features:</strong>
+            <ul>
+              <li>Structured form for environment, genetics and diet.</li>
+              <li>Simple “estimated risk” calculated from factor weights.</li>
+              <li>Patient dashboard + general recommendations.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="form" class="card" style="margin-top:16px">
+          <h1>Form — Data sharing</h1>
+          <p class="lead">Fill in the information below. Data here is stored locally in the browser (simulation).</p>
+
+          <form id="dataForm">
+            <div class="row">
+              <div style="flex:1">
+                <label>First and last name</label>
+                <input type="text" id="fullname" placeholder="e.g., Mary Smith" required />
+              </div>
+              <div style="width:150px">
+                <label>Age</label>
+                <input type="text" id="age" placeholder="45" required />
+              </div>
+            </div>
+
+            <div style="margin-top:12px">
+              <label>Environment (select all that apply)</label>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <label class="pill"><input type="checkbox" value="urban" class="env"> Urban area</label>
+                <label class="pill"><input type="checkbox" value="rural" class="env"> Rural area</label>
+                <label class="pill"><input type="checkbox" value="polluted" class="env"> High pollution</label>
+                <label class="pill"><input type="checkbox" value="green" class="env"> Access to green spaces</label>
+              </div>
+            </div>
+
+            <div style="margin-top:12px">
+              <label>Genetics (family history)</label>
+              <select id="genetics">
+                <option value="none">No known family history</option>
+                <option value="moderate">Moderate history (1 member)</option>
+                <option value="high">Strong history (multiple members)</option>
+              </select>
+            </div>
+
+            <div style="margin-top:12px">
+              <label>Diet — briefly describe your habits</label>
+              <textarea id="diet" placeholder="e.g., Mediterranean diet, vegetarian, lots of fast food..."></textarea>
+            </div>
+
+            <!-- Lifestyle -->
+            <div style="margin-top:16px">
+              <h3 style="margin:0 0 8px 0">Lifestyle</h3>
+              <div class="row">
+                <div style="flex:1">
+                  <label>Smoking</label>
+                  <select id="smoking">
+                    <option value="none">Never</option>
+                    <option value="former">Former smoker</option>
+                    <option value="current">Current smoker</option>
+                  </select>
+                </div>
+                <div style="width:180px">
+                  <label>Alcohol (units/week)</label>
+                  <input type="number" id="alcohol" min="0" step="1" placeholder="0" />
+                </div>
+                <div style="flex:1">
+                  <label>Physical activity</label>
+                  <select id="activity">
+                    <option value="low">Low</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="high">High</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div style="width:150px">
+                  <label>Sleep (hours/night)</label>
+                  <input type="number" id="sleep" min="0" step="0.5" placeholder="7" />
+                </div>
+                <div style="width:150px">
+                  <label>Height (cm)</label>
+                  <input type="number" id="height" min="0" step="1" placeholder="170" />
+                </div>
+                <div style="width:150px">
+                  <label>Weight (kg)</label>
+                  <input type="number" id="weight" min="0" step="0.1" placeholder="70" />
+                </div>
+                <div style="flex:1">
+                  <label>Stress level (0-10)</label>
+                  <input type="number" id="stress" min="0" max="10" step="1" placeholder="4" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Medical history -->
+            <div style="margin-top:16px">
+              <h3 style="margin:0 0 8px 0">Medical history</h3>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <label class="pill"><input type="checkbox" value="diabetes" class="cond"> Diabetes</label>
+                <label class="pill"><input type="checkbox" value="hypertension" class="cond"> High Blood pressure</label>
+                <label class="pill"><input type="checkbox" value="cvd" class="cond"> Cardiovascular disease</label>
+                <label class="pill"><input type="checkbox" value="cancer" class="cond"> Cancer history</label>
+                <label class="pill"><input type="checkbox" value="asthma" class="cond"> Asthma/COPD</label>
+                <label class="pill"><input type="checkbox" value="obesity" class="cond"> Obesity</label>
+                <label class="pill"><input type="checkbox" value="kidney" class="cond"> Kidney disease</label>
+              </div>
+            </div>
+
+            <!-- Vitals & Labs -->
+            <div style="margin-top:16px">
+              <h3 style="margin:0 0 8px 0">Vitals &amp; labs (optional)</h3>
+              <div class="row">
+                <div style="width:180px">
+                  <label>Systolic BP (mmHg)</label>
+                  <input type="number" id="sbp" min="50" max="260" step="1" placeholder="120" />
+                </div>
+                <div style="width:220px">
+                  <label>Total cholesterol (mg/dL)</label>
+                  <input type="number" id="chol" min="80" max="400" step="1" placeholder="190" />
+                </div>
+                <div style="width:220px">
+                  <label>Fasting glucose (mg/dL)</label>
+                  <input type="number" id="glucose" min="60" max="400" step="1" placeholder="95" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Nutrition quick check -->
+            <div style="margin-top:16px">
+              <h3 style="margin:0 0 8px 0">Nutrition quick check</h3>
+              <div class="row">
+                <div style="width:200px">
+                  <label>Fruit servings/day</label>
+                  <input type="number" id="fruits" min="0" max="15" step="1" placeholder="2" />
+                </div>
+                <div style="width:220px">
+                  <label>Vegetable servings/day</label>
+                  <input type="number" id="vegetables" min="0" max="15" step="1" placeholder="3" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Work & exposure -->
+            <div style="margin-top:16px">
+              <h3 style="margin:0 0 8px 0">Work &amp; exposure</h3>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <label class="pill"><input type="checkbox" id="noise"> High noise exposure</label>
+                <label class="pill"><input type="checkbox" value="shift" class="work"> Shift work</label>
+                <label class="pill"><input type="checkbox" value="night" class="work"> Night shifts</label>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+              <label style="margin-bottom:0"><input type="checkbox" id="consent"> I agree to share this data anonymously for prevention</label>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <button type="button" id="saveBtn">Save &amp; calculate risk</button>
+              <button type="button" id="clearBtn" class="btn-ghost">Clear</button>
+            </div>
+
+            <div id="formMsg" style="margin-top:10px;color:var(--muted)"></div>
+          </form>
+        </section>
+
+        <section id="dashboard" class="card" style="margin-top:16px">
+          <h1>Patient dashboard (simulation)</h1>
+          <p class="lead">Each entry generates a risk score and general recommendations based on the provided factors.</p>
+
+          <div id="patientList"></div>
+
+        </section>
+
+        
+      </main>
+
+      <aside class="sidebar">
+        <div class="card">
+          <h3>Quick view</h3>
+          <div class="stat">
+            <div>
+              <div style="font-size:13px;color:var(--muted)">Entries</div>
+              <div id="countEntries" style="font-weight:800;font-size:20px">0</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:13px;color:var(--muted)">Average risk</div>
+              <div id="avgRisk" class="risk-low">—</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <h4 style="margin:0">Recommendations</h4>
+            <ul style="margin-top:8px;color:var(--muted)">
+              <li id="rec1">Fill in the form and accept sharing.</li>
+              <li id="rec2">Consider preventive follow-up if risk is high.</li>
+            </ul>
+          </div>
+
+          <div style="margin-top:12px">
+            <h4 style="margin:0">Example interpretation grid</h4>
+            <table>
+              <thead><tr><th>Score</th><th>Interpretation</th></tr></thead>
+              <tbody>
+                <tr><td>0-30</td><td>Low</td></tr>
+                <tr><td>31-65</td><td>Moderate</td></tr>
+                <tr><td>66-100</td><td>High</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Simulator</h3>
+          <div class="chart" id="miniChart">No data points</div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button id="exportBtn" class="btn-ghost">Export (JSON)</button>
+            <button id="importBtn" class="btn-ghost">Import sample</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <script src="script2.js"></script>
+</body>
+</html>
+
+
